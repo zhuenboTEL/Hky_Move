@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hky.dao.ModuleMapper">
+  <resultMap id="BaseResultMap" type="com.hky.entity.Module">
+    <id column="mo_id" jdbcType="VARCHAR" property="moId" />
+    <result column="mo_parentid" jdbcType="VARCHAR" property="moParentid" />
+    <result column="mo_parentname" jdbcType="VARCHAR" property="moParentname" />
+    <result column="mo_name" jdbcType="VARCHAR" property="moName" />
+    <result column="mo_level" jdbcType="VARCHAR" property="moLevel" />
+    <result column="mo_statu" jdbcType="VARCHAR" property="moStatu" />
+    <result column="mo_cpermission" jdbcType="VARCHAR" property="moCpermission" />
+    <result column="mo_url" jdbcType="VARCHAR" property="moUrl" />
+    <result column="mo_type" jdbcType="VARCHAR" property="moType" />
+    <result column="mo_state" jdbcType="VARCHAR" property="moState" />
+    <result column="mo_belogin" jdbcType="VARCHAR" property="moBelogin" />
+    <result column="mo_explain" jdbcType="VARCHAR" property="moExplain" />
+    <result column="mo_number" jdbcType="VARCHAR" property="moNumber" />
+    <result column="mo_createby" jdbcType="VARCHAR" property="moCreateby" />
+    <result column="mo_createdept" jdbcType="VARCHAR" property="moCreatedept" />
+    <result column="mo_createtime" jdbcType="TIMESTAMP" property="moCreatetime" />
+    <result column="mo_updateby" jdbcType="VARCHAR" property="moUpdateby" />
+    <result column="mo_updatetime" jdbcType="TIMESTAMP" property="moUpdatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mo_id, mo_parentid, mo_parentname, mo_name, mo_level, mo_statu, mo_cpermission, mo_url, 
+    mo_type, mo_state, mo_belogin, mo_explain, mo_number, mo_createby, mo_createdept, 
+    mo_createtime, mo_updateby, mo_updatetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from module
+    where mo_id = #{moId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from module
+    where mo_id = #{moId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hky.entity.Module">
+    insert into module (mo_id, mo_parentid, mo_parentname, 
+      mo_name, mo_level, mo_statu, 
+      mo_cpermission, mo_url, mo_type, 
+      mo_state, mo_belogin, mo_explain, 
+      mo_number, mo_createby, mo_createdept, 
+      mo_createtime, mo_updateby, mo_updatetime
+      )
+    values (#{moId,jdbcType=VARCHAR}, #{moParentid,jdbcType=VARCHAR}, #{moParentname,jdbcType=VARCHAR}, 
+      #{moName,jdbcType=VARCHAR}, #{moLevel,jdbcType=VARCHAR}, #{moStatu,jdbcType=VARCHAR}, 
+      #{moCpermission,jdbcType=VARCHAR}, #{moUrl,jdbcType=VARCHAR}, #{moType,jdbcType=VARCHAR}, 
+      #{moState,jdbcType=VARCHAR}, #{moBelogin,jdbcType=VARCHAR}, #{moExplain,jdbcType=VARCHAR}, 
+      #{moNumber,jdbcType=VARCHAR}, #{moCreateby,jdbcType=VARCHAR}, #{moCreatedept,jdbcType=VARCHAR}, 
+      #{moCreatetime,jdbcType=TIMESTAMP}, #{moUpdateby,jdbcType=VARCHAR}, #{moUpdatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hky.entity.Module">
+    insert into module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moId != null">
+        mo_id,
+      </if>
+      <if test="moParentid != null">
+        mo_parentid,
+      </if>
+      <if test="moParentname != null">
+        mo_parentname,
+      </if>
+      <if test="moName != null">
+        mo_name,
+      </if>
+      <if test="moLevel != null">
+        mo_level,
+      </if>
+      <if test="moStatu != null">
+        mo_statu,
+      </if>
+      <if test="moCpermission != null">
+        mo_cpermission,
+      </if>
+      <if test="moUrl != null">
+        mo_url,
+      </if>
+      <if test="moType != null">
+        mo_type,
+      </if>
+      <if test="moState != null">
+        mo_state,
+      </if>
+      <if test="moBelogin != null">
+        mo_belogin,
+      </if>
+      <if test="moExplain != null">
+        mo_explain,
+      </if>
+      <if test="moNumber != null">
+        mo_number,
+      </if>
+      <if test="moCreateby != null">
+        mo_createby,
+      </if>
+      <if test="moCreatedept != null">
+        mo_createdept,
+      </if>
+      <if test="moCreatetime != null">
+        mo_createtime,
+      </if>
+      <if test="moUpdateby != null">
+        mo_updateby,
+      </if>
+      <if test="moUpdatetime != null">
+        mo_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moId != null">
+        #{moId,jdbcType=VARCHAR},
+      </if>
+      <if test="moParentid != null">
+        #{moParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="moParentname != null">
+        #{moParentname,jdbcType=VARCHAR},
+      </if>
+      <if test="moName != null">
+        #{moName,jdbcType=VARCHAR},
+      </if>
+      <if test="moLevel != null">
+        #{moLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="moStatu != null">
+        #{moStatu,jdbcType=VARCHAR},
+      </if>
+      <if test="moCpermission != null">
+        #{moCpermission,jdbcType=VARCHAR},
+      </if>
+      <if test="moUrl != null">
+        #{moUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="moType != null">
+        #{moType,jdbcType=VARCHAR},
+      </if>
+      <if test="moState != null">
+        #{moState,jdbcType=VARCHAR},
+      </if>
+      <if test="moBelogin != null">
+        #{moBelogin,jdbcType=VARCHAR},
+      </if>
+      <if test="moExplain != null">
+        #{moExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="moNumber != null">
+        #{moNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreateby != null">
+        #{moCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreatedept != null">
+        #{moCreatedept,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreatetime != null">
+        #{moCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moUpdateby != null">
+        #{moUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="moUpdatetime != null">
+        #{moUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hky.entity.Module">
+    update module
+    <set>
+      <if test="moParentid != null">
+        mo_parentid = #{moParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="moParentname != null">
+        mo_parentname = #{moParentname,jdbcType=VARCHAR},
+      </if>
+      <if test="moName != null">
+        mo_name = #{moName,jdbcType=VARCHAR},
+      </if>
+      <if test="moLevel != null">
+        mo_level = #{moLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="moStatu != null">
+        mo_statu = #{moStatu,jdbcType=VARCHAR},
+      </if>
+      <if test="moCpermission != null">
+        mo_cpermission = #{moCpermission,jdbcType=VARCHAR},
+      </if>
+      <if test="moUrl != null">
+        mo_url = #{moUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="moType != null">
+        mo_type = #{moType,jdbcType=VARCHAR},
+      </if>
+      <if test="moState != null">
+        mo_state = #{moState,jdbcType=VARCHAR},
+      </if>
+      <if test="moBelogin != null">
+        mo_belogin = #{moBelogin,jdbcType=VARCHAR},
+      </if>
+      <if test="moExplain != null">
+        mo_explain = #{moExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="moNumber != null">
+        mo_number = #{moNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreateby != null">
+        mo_createby = #{moCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreatedept != null">
+        mo_createdept = #{moCreatedept,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreatetime != null">
+        mo_createtime = #{moCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moUpdateby != null">
+        mo_updateby = #{moUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="moUpdatetime != null">
+        mo_updatetime = #{moUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where mo_id = #{moId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hky.entity.Module">
+    update module
+    set mo_parentid = #{moParentid,jdbcType=VARCHAR},
+      mo_parentname = #{moParentname,jdbcType=VARCHAR},
+      mo_name = #{moName,jdbcType=VARCHAR},
+      mo_level = #{moLevel,jdbcType=VARCHAR},
+      mo_statu = #{moStatu,jdbcType=VARCHAR},
+      mo_cpermission = #{moCpermission,jdbcType=VARCHAR},
+      mo_url = #{moUrl,jdbcType=VARCHAR},
+      mo_type = #{moType,jdbcType=VARCHAR},
+      mo_state = #{moState,jdbcType=VARCHAR},
+      mo_belogin = #{moBelogin,jdbcType=VARCHAR},
+      mo_explain = #{moExplain,jdbcType=VARCHAR},
+      mo_number = #{moNumber,jdbcType=VARCHAR},
+      mo_createby = #{moCreateby,jdbcType=VARCHAR},
+      mo_createdept = #{moCreatedept,jdbcType=VARCHAR},
+      mo_createtime = #{moCreatetime,jdbcType=TIMESTAMP},
+      mo_updateby = #{moUpdateby,jdbcType=VARCHAR},
+      mo_updatetime = #{moUpdatetime,jdbcType=TIMESTAMP}
+    where mo_id = #{moId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hky.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.hky.entity.User">
+    <id column="t_id" jdbcType="VARCHAR" property="tId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="t_overname" jdbcType="VARCHAR" property="tOvername" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="t_sex" jdbcType="VARCHAR" property="tSex" />
+    <result column="t_date" jdbcType="TIMESTAMP" property="tDate" />
+    <result column="n_id" jdbcType="VARCHAR" property="nId" />
+    <result column="a_id" jdbcType="VARCHAR" property="aId" />
+    <result column="aa_id" jdbcType="VARCHAR" property="aaId" />
+    <result column="t_worktime" jdbcType="TIMESTAMP" property="tWorktime" />
+    <result column="p_id" jdbcType="VARCHAR" property="pId" />
+    <result column="t_partytime" jdbcType="TIMESTAMP" property="tPartytime" />
+    <result column="ar_id" jdbcType="VARCHAR" property="arId" />
+    <result column="t_gettime" jdbcType="TIMESTAMP" property="tGettime" />
+    <result column="t_engagetime" jdbcType="TIMESTAMP" property="tEngagetime" />
+    <result column="g_id" jdbcType="VARCHAR" property="gId" />
+    <result column="t_duty" jdbcType="VARCHAR" property="tDuty" />
+    <result column="t_tackofficetime" jdbcType="TIMESTAMP" property="tTackofficetime" />
+    <result column="ad_id" jdbcType="VARCHAR" property="adId" />
+    <result column="s_id" jdbcType="VARCHAR" property="sId" />
+    <result column="t_magor" jdbcType="VARCHAR" property="tMagor" />
+    <result column="st_id" jdbcType="VARCHAR" property="stId" />
+    <result column="d_id" jdbcType="VARCHAR" property="dId" />
+    <result column="t_idnumber" jdbcType="VARCHAR" property="tIdnumber" />
+    <result column="t_state" jdbcType="VARCHAR" property="tState" />
+    <result column="t_englishstate" jdbcType="VARCHAR" property="tEnglishstate" />
+    <result column="t_statu" jdbcType="VARCHAR" property="tStatu" />
+  </resultMap>
+   <resultMap id="UserWithRole" type="com.hky.entity.RoleUser" extends="BaseResultMap">
+    <collection property="Roles" resultMap="RoleResultMap"></collection>
+  </resultMap>
+  <resultMap id="RoleResultMap" type="com.hky.entity.Role">
+    <id column="r_id" jdbcType="VARCHAR" property="rId" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="r_remark" jdbcType="VARCHAR" property="rRemark" />
+    <result column="r_number" jdbcType="VARCHAR" property="rNumber" />
+    <result column="r_createby" jdbcType="VARCHAR" property="rCreateby" />
+    <result column="r_dept" jdbcType="VARCHAR" property="rDept" />
+    <result column="r_createtime" jdbcType="TIMESTAMP" property="rCreatetime" />
+    <result column="r_updateby" jdbcType="VARCHAR" property="rUpdateby" />
+    <result column="r_updatetime" jdbcType="TIMESTAMP" property="rUpdatetime" />
+  </resultMap>
+   
+  <sql id="Base_Column_List">
+    t_id, username, t_overname, password, t_sex, t_date, n_id, a_id, aa_id, t_worktime, 
+    p_id, t_partytime, ar_id, t_gettime, t_engagetime, g_id, t_duty, t_tackofficetime, 
+    ad_id, s_id, t_magor, st_id, d_id, t_idnumber, t_state, t_englishstate, t_statu
+  </sql>
+  <select id="getUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询角色Name（用户名） -->
+  <select id="getUserWithRoleByName" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT r.r_name
+	FROM t_user u
+	JOIN role_user ru ON u.t_id = ru.t_id
+	JOIN role r ON r.r_id = ru.r_id
+    WHERE u.username = #{username,jdbcType=VARCHAR}
+  </select>
+   
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hky.entity.User">
+    insert into t_user (t_id, username, t_overname, 
+      password, t_sex, t_date, 
+      n_id, a_id, aa_id, t_worktime, 
+      p_id, t_partytime, ar_id, 
+      t_gettime, t_engagetime, g_id, 
+      t_duty, t_tackofficetime, ad_id, 
+      s_id, t_magor, st_id, 
+      d_id, t_idnumber, t_state, 
+      t_englishstate, t_statu)
+    values (#{tId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{tOvername,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{tSex,jdbcType=VARCHAR}, #{tDate,jdbcType=TIMESTAMP}, 
+      #{nId,jdbcType=VARCHAR}, #{aId,jdbcType=VARCHAR}, #{aaId,jdbcType=VARCHAR}, #{tWorktime,jdbcType=TIMESTAMP}, 
+      #{pId,jdbcType=VARCHAR}, #{tPartytime,jdbcType=TIMESTAMP}, #{arId,jdbcType=VARCHAR}, 
+      #{tGettime,jdbcType=TIMESTAMP}, #{tEngagetime,jdbcType=TIMESTAMP}, #{gId,jdbcType=VARCHAR}, 
+      #{tDuty,jdbcType=VARCHAR}, #{tTackofficetime,jdbcType=TIMESTAMP}, #{adId,jdbcType=VARCHAR}, 
+      #{sId,jdbcType=VARCHAR}, #{tMagor,jdbcType=VARCHAR}, #{stId,jdbcType=VARCHAR}, 
+      #{dId,jdbcType=VARCHAR}, #{tIdnumber,jdbcType=VARCHAR}, #{tState,jdbcType=VARCHAR}, 
+      #{tEnglishstate,jdbcType=VARCHAR}, #{tStatu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hky.entity.User">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tId != null">
+        t_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="tOvername != null">
+        t_overname,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="tSex != null">
+        t_sex,
+      </if>
+      <if test="tDate != null">
+        t_date,
+      </if>
+      <if test="nId != null">
+        n_id,
+      </if>
+      <if test="aId != null">
+        a_id,
+      </if>
+      <if test="aaId != null">
+        aa_id,
+      </if>
+      <if test="tWorktime != null">
+        t_worktime,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="tPartytime != null">
+        t_partytime,
+      </if>
+      <if test="arId != null">
+        ar_id,
+      </if>
+      <if test="tGettime != null">
+        t_gettime,
+      </if>
+      <if test="tEngagetime != null">
+        t_engagetime,
+      </if>
+      <if test="gId != null">
+        g_id,
+      </if>
+      <if test="tDuty != null">
+        t_duty,
+      </if>
+      <if test="tTackofficetime != null">
+        t_tackofficetime,
+      </if>
+      <if test="adId != null">
+        ad_id,
+      </if>
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="tMagor != null">
+        t_magor,
+      </if>
+      <if test="stId != null">
+        st_id,
+      </if>
+      <if test="dId != null">
+        d_id,
+      </if>
+      <if test="tIdnumber != null">
+        t_idnumber,
+      </if>
+      <if test="tState != null">
+        t_state,
+      </if>
+      <if test="tEnglishstate != null">
+        t_englishstate,
+      </if>
+      <if test="tStatu != null">
+        t_statu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tId != null">
+        #{tId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="tOvername != null">
+        #{tOvername,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tSex != null">
+        #{tSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tDate != null">
+        #{tDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nId != null">
+        #{nId,jdbcType=VARCHAR},
+      </if>
+      <if test="aId != null">
+        #{aId,jdbcType=VARCHAR},
+      </if>
+      <if test="aaId != null">
+        #{aaId,jdbcType=VARCHAR},
+      </if>
+      <if test="tWorktime != null">
+        #{tWorktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="tPartytime != null">
+        #{tPartytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arId != null">
+        #{arId,jdbcType=VARCHAR},
+      </if>
+      <if test="tGettime != null">
+        #{tGettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tEngagetime != null">
+        #{tEngagetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gId != null">
+        #{gId,jdbcType=VARCHAR},
+      </if>
+      <if test="tDuty != null">
+        #{tDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="tTackofficetime != null">
+        #{tTackofficetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adId != null">
+        #{adId,jdbcType=VARCHAR},
+      </if>
+      <if test="sId != null">
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="tMagor != null">
+        #{tMagor,jdbcType=VARCHAR},
+      </if>
+      <if test="stId != null">
+        #{stId,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null">
+        #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="tIdnumber != null">
+        #{tIdnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tState != null">
+        #{tState,jdbcType=VARCHAR},
+      </if>
+      <if test="tEnglishstate != null">
+        #{tEnglishstate,jdbcType=VARCHAR},
+      </if>
+      <if test="tStatu != null">
+        #{tStatu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hky.entity.User">
+    update t_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="tOvername != null">
+        t_overname = #{tOvername,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tSex != null">
+        t_sex = #{tSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tDate != null">
+        t_date = #{tDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nId != null">
+        n_id = #{nId,jdbcType=VARCHAR},
+      </if>
+      <if test="aId != null">
+        a_id = #{aId,jdbcType=VARCHAR},
+      </if>
+      <if test="aaId != null">
+        aa_id = #{aaId,jdbcType=VARCHAR},
+      </if>
+      <if test="tWorktime != null">
+        t_worktime = #{tWorktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="tPartytime != null">
+        t_partytime = #{tPartytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arId != null">
+        ar_id = #{arId,jdbcType=VARCHAR},
+      </if>
+      <if test="tGettime != null">
+        t_gettime = #{tGettime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tEngagetime != null">
+        t_engagetime = #{tEngagetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gId != null">
+        g_id = #{gId,jdbcType=VARCHAR},
+      </if>
+      <if test="tDuty != null">
+        t_duty = #{tDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="tTackofficetime != null">
+        t_tackofficetime = #{tTackofficetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adId != null">
+        ad_id = #{adId,jdbcType=VARCHAR},
+      </if>
+      <if test="sId != null">
+        s_id = #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="tMagor != null">
+        t_magor = #{tMagor,jdbcType=VARCHAR},
+      </if>
+      <if test="stId != null">
+        st_id = #{stId,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null">
+        d_id = #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="tIdnumber != null">
+        t_idnumber = #{tIdnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tState != null">
+        t_state = #{tState,jdbcType=VARCHAR},
+      </if>
+      <if test="tEnglishstate != null">
+        t_englishstate = #{tEnglishstate,jdbcType=VARCHAR},
+      </if>
+      <if test="tStatu != null">
+        t_statu = #{tStatu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hky.entity.User">
+    update t_user
+    set username = #{username,jdbcType=VARCHAR},
+      t_overname = #{tOvername,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      t_sex = #{tSex,jdbcType=VARCHAR},
+      t_date = #{tDate,jdbcType=TIMESTAMP},
+      n_id = #{nId,jdbcType=VARCHAR},
+      a_id = #{aId,jdbcType=VARCHAR},
+      aa_id = #{aaId,jdbcType=VARCHAR},
+      t_worktime = #{tWorktime,jdbcType=TIMESTAMP},
+      p_id = #{pId,jdbcType=VARCHAR},
+      t_partytime = #{tPartytime,jdbcType=TIMESTAMP},
+      ar_id = #{arId,jdbcType=VARCHAR},
+      t_gettime = #{tGettime,jdbcType=TIMESTAMP},
+      t_engagetime = #{tEngagetime,jdbcType=TIMESTAMP},
+      g_id = #{gId,jdbcType=VARCHAR},
+      t_duty = #{tDuty,jdbcType=VARCHAR},
+      t_tackofficetime = #{tTackofficetime,jdbcType=TIMESTAMP},
+      ad_id = #{adId,jdbcType=VARCHAR},
+      s_id = #{sId,jdbcType=VARCHAR},
+      t_magor = #{tMagor,jdbcType=VARCHAR},
+      st_id = #{stId,jdbcType=VARCHAR},
+      d_id = #{dId,jdbcType=VARCHAR},
+      t_idnumber = #{tIdnumber,jdbcType=VARCHAR},
+      t_state = #{tState,jdbcType=VARCHAR},
+      t_englishstate = #{tEnglishstate,jdbcType=VARCHAR},
+      t_statu = #{tStatu,jdbcType=VARCHAR}
+    where t_id = #{tId,jdbcType=VARCHAR}
+  </update>
+</mapper>

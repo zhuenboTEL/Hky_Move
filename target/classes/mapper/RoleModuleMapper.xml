@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hky.dao.RoleModuleMapper">
+  <resultMap id="BaseResultMap" type="com.hky.entity.RoleModule">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="mo_id" jdbcType="VARCHAR" property="moId" />
+    <result column="r_id" jdbcType="VARCHAR" property="rId" />
+    <result column="mo_date" jdbcType="TIMESTAMP" property="moDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mo_id, r_id, mo_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role_module
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from role_module
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hky.entity.RoleModule">
+    insert into role_module (id, mo_id, r_id, 
+      mo_date)
+    values (#{id,jdbcType=VARCHAR}, #{moId,jdbcType=VARCHAR}, #{rId,jdbcType=VARCHAR}, 
+      #{moDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hky.entity.RoleModule">
+    insert into role_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moId != null">
+        mo_id,
+      </if>
+      <if test="rId != null">
+        r_id,
+      </if>
+      <if test="moDate != null">
+        mo_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="moId != null">
+        #{moId,jdbcType=VARCHAR},
+      </if>
+      <if test="rId != null">
+        #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="moDate != null">
+        #{moDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hky.entity.RoleModule">
+    update role_module
+    <set>
+      <if test="moId != null">
+        mo_id = #{moId,jdbcType=VARCHAR},
+      </if>
+      <if test="rId != null">
+        r_id = #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="moDate != null">
+        mo_date = #{moDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hky.entity.RoleModule">
+    update role_module
+    set mo_id = #{moId,jdbcType=VARCHAR},
+      r_id = #{rId,jdbcType=VARCHAR},
+      mo_date = #{moDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

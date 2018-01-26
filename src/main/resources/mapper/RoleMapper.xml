@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hky.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.hky.entity.Role">
+    <id column="r_id" jdbcType="VARCHAR" property="rId" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="r_remark" jdbcType="VARCHAR" property="rRemark" />
+    <result column="r_number" jdbcType="VARCHAR" property="rNumber" />
+    <result column="r_createby" jdbcType="VARCHAR" property="rCreateby" />
+    <result column="r_dept" jdbcType="VARCHAR" property="rDept" />
+    <result column="r_createtime" jdbcType="TIMESTAMP" property="rCreatetime" />
+    <result column="r_updateby" jdbcType="VARCHAR" property="rUpdateby" />
+    <result column="r_updatetime" jdbcType="TIMESTAMP" property="rUpdatetime" />
+  </resultMap>
+  
+  <resultMap id="RoleWithModule" type="com.hky.entity.RoleModule" extends="BaseResultMap">
+     <collection property="Modules" resultMap="ModuleResultMap"></collection>
+  </resultMap>
+  
+  <resultMap id="ModuleResultMap" type="com.hky.entity.Module">
+    <id column="mo_id" jdbcType="VARCHAR" property="moId" />
+    <result column="mo_parentid" jdbcType="VARCHAR" property="moParentid" />
+    <result column="mo_parentname" jdbcType="VARCHAR" property="moParentname" />
+    <result column="mo_name" jdbcType="VARCHAR" property="moName" />
+    <result column="mo_level" jdbcType="VARCHAR" property="moLevel" />
+    <result column="mo_statu" jdbcType="VARCHAR" property="moStatu" />
+    <result column="mo_cpermission" jdbcType="VARCHAR" property="moCpermission" />
+    <result column="mo_url" jdbcType="VARCHAR" property="moUrl" />
+    <result column="mo_type" jdbcType="VARCHAR" property="moType" />
+    <result column="mo_state" jdbcType="VARCHAR" property="moState" />
+    <result column="mo_belogin" jdbcType="VARCHAR" property="moBelogin" />
+    <result column="mo_explain" jdbcType="VARCHAR" property="moExplain" />
+    <result column="mo_number" jdbcType="VARCHAR" property="moNumber" />
+    <result column="mo_createby" jdbcType="VARCHAR" property="moCreateby" />
+    <result column="mo_createdept" jdbcType="VARCHAR" property="moCreatedept" />
+    <result column="mo_createtime" jdbcType="TIMESTAMP" property="moCreatetime" />
+    <result column="mo_updateby" jdbcType="VARCHAR" property="moUpdateby" />
+    <result column="mo_updatetime" jdbcType="TIMESTAMP" property="moUpdatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    r_id, r_name, r_remark, r_number, r_createby, r_dept, r_createtime, r_updateby, r_updatetime
+  </sql>
+   <!-- 查询模块Name（用户名） -->
+  <select id="getRoleWithModuleByName" parameterType="java.lang.String"  resultType="java.lang.String">
+    SELECT m.mo_name
+	FROM t_user u
+	JOIN role_user ru ON u.t_id = ru.t_id
+	JOIN role r ON r.r_id = ru.r_id
+	JOIN role_module rm ON rm.r_id = r.r_id
+	JOIN module m ON m.mo_id = rm.mo_id
+	WHERE u.username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from role
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hky.entity.Role">
+    insert into role (r_id, r_name, r_remark, 
+      r_number, r_createby, r_dept, 
+      r_createtime, r_updateby, r_updatetime
+      )
+    values (#{rId,jdbcType=VARCHAR}, #{rName,jdbcType=VARCHAR}, #{rRemark,jdbcType=VARCHAR}, 
+      #{rNumber,jdbcType=VARCHAR}, #{rCreateby,jdbcType=VARCHAR}, #{rDept,jdbcType=VARCHAR}, 
+      #{rCreatetime,jdbcType=TIMESTAMP}, #{rUpdateby,jdbcType=VARCHAR}, #{rUpdatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hky.entity.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        r_id,
+      </if>
+      <if test="rName != null">
+        r_name,
+      </if>
+      <if test="rRemark != null">
+        r_remark,
+      </if>
+      <if test="rNumber != null">
+        r_number,
+      </if>
+      <if test="rCreateby != null">
+        r_createby,
+      </if>
+      <if test="rDept != null">
+        r_dept,
+      </if>
+      <if test="rCreatetime != null">
+        r_createtime,
+      </if>
+      <if test="rUpdateby != null">
+        r_updateby,
+      </if>
+      <if test="rUpdatetime != null">
+        r_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="rName != null">
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rRemark != null">
+        #{rRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rNumber != null">
+        #{rNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreateby != null">
+        #{rCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="rDept != null">
+        #{rDept,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreatetime != null">
+        #{rCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rUpdateby != null">
+        #{rUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="rUpdatetime != null">
+        #{rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hky.entity.Role">
+    update role
+    <set>
+      <if test="rName != null">
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rRemark != null">
+        r_remark = #{rRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="rNumber != null">
+        r_number = #{rNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreateby != null">
+        r_createby = #{rCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="rDept != null">
+        r_dept = #{rDept,jdbcType=VARCHAR},
+      </if>
+      <if test="rCreatetime != null">
+        r_createtime = #{rCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rUpdateby != null">
+        r_updateby = #{rUpdateby,jdbcType=VARCHAR},
+      </if>
+      <if test="rUpdatetime != null">
+        r_updatetime = #{rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hky.entity.Role">
+    update role
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_remark = #{rRemark,jdbcType=VARCHAR},
+      r_number = #{rNumber,jdbcType=VARCHAR},
+      r_createby = #{rCreateby,jdbcType=VARCHAR},
+      r_dept = #{rDept,jdbcType=VARCHAR},
+      r_createtime = #{rCreatetime,jdbcType=TIMESTAMP},
+      r_updateby = #{rUpdateby,jdbcType=VARCHAR},
+      r_updatetime = #{rUpdatetime,jdbcType=TIMESTAMP}
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+</mapper>

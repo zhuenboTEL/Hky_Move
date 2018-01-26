@@ -1,0 +1,56 @@
+html {  
+    background: url("/img/back.jpg") no-repeat center center fixed;  
+    -webkit-background-size: cover;  
+    -moz-background-size: cover;  
+    -o-background-size: cover;  
+    background-size: cover;  
+}  
+  
+body {  
+    padding-top: 20px;  
+    font-size: 14px;  
+    background: transparent;  
+    height:300px;  
+    overflow:auto  
+}  
+  
+h1 {  
+    font-weight: 400;  
+    font-size: 25px;  
+}  
+  
+  
+.panel {  
+    background-color: rgba(255, 255, 255, 0.1);  
+    align:center;  
+    padding-top: 20px;  
+}  
+  
+  
+/* footer start */  
+#footer {  
+    position: absolute;  
+    bottom: 0;  
+    width: 100%;  
+    /* Set the fixed height of the footer here */  
+    height: auto;  
+    text-align: center;  
+}  
+  
+.container {  
+    width: auto;  
+    max-width: auto;  
+    padding: 80px 15px;  
+    position: relative;   
+    overflow: center;  
+}  
+  
+.center-vertical {  
+    position:relative;  
+    /* top:50%; 
+    transform:translateY(-0px); */  
+    -ms-transform: rotate(0deg); /* IE 9 */  
+    -moz-transform: rotate(0deg); /* Firefox */  
+    -webkit-transform: rotate(0deg); /* Safari 和 Chrome */  
+    -o-transform: rotate(0deg); /* Opera */  
+}  
